@@ -12,7 +12,7 @@ const UserType = () => {
         </h2>
         <div className="user-type-buttons">
           <button className="user-type-button profesor"> <Link to='/registro'> Profesorado </Link></button>
-          <button className="user-type-button estudiante"> <Link> Estudiante </Link></button>
+          <button className="user-type-button estudiante"> <Link to='/registroEst'> Estudiante </Link></button>
         </div>
       </div>
     </div>
