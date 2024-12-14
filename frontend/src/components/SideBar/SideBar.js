@@ -27,7 +27,7 @@ const SideBar = ({ menuOpen, toggleMenu }) => {
           <li><Link to={`/${nombreUsuario}/cursos/${nombreCurso}/historial`}>Inicio</Link></li> 
           <li><Link to={`/${nombreUsuario}/cursos/${nombreCurso}/creacionclase`}>Crear clase</Link></li> 
           <li><Link to={`/${nombreUsuario}/cursos/${nombreCurso}/reportes`}>Reportes de las clases</Link></li>
-          <li><Link to={`/${nombreUsuario}/cursos/${nombreCurso}/crearpreguntas`}>Crear preguntas/subir material a clases</Link></li> 
+          <li><Link to={`/${nombreUsuario}/cursos/${nombreCurso}/gestionclases`}>Crear preguntas/subir material a clases</Link></li> 
           <li><Link to="/">Cerrar sesión</Link></li>
           </ul>
         </nav>

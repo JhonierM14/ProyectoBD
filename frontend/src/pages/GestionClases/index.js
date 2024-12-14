@@ -1,9 +1,11 @@
 import React from 'react';
 import "../style.css";
 import "./GestionClases.css";
+import { Link, useParams } from "react-router-dom";
 import Header from '../../components/Header/Header';
 
 const Pregunta = () => {
+  const { nombreUsuario, nombreCurso } = useParams();
   const clases = [
     { id: 1, nombre: 'CLASE 1' },
     { id: 2, nombre: 'CLASE 2' },
@@ -23,8 +25,7 @@ const Pregunta = () => {
                     <div key={clase.id} className="item">
                     <h3>{clase.nombre}</h3>
                     <div className="buttons">
-                        <button className="btn">Crear Pregunta</button>
-                        <button className="btn">Subir Material</button>
+                        <button className="btn"> <Link to=''> Crear Pregunta </Link></button>
                     </div>
                     </div>
                 ))}
