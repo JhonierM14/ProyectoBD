@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, {useState} from 'react';
+import { Link, useParams } from "react-router-dom";
 import { createClase } from "../../api/clasesApi";
 import './CreacionClase.css'; // Importa el archivo CSS
 
 const CreacionClase = () => {
+  const { nombreUsuario, nombreCurso } = useParams();
+
   const [formData, setFormData] = useState({
       id_clase: "", // Rol de Profesor por defecto
       id_curso: 1, //Por defecto el curso 1 (debe cambiarse para aceptar mas cursos)
@@ -39,23 +41,7 @@ const CreacionClase = () => {
       <div className="create-class-box">
         <h1 className="create-class-title">Attenzio</h1>
         <h2 className="create-class-subtitle">Creación de clase</h2>
-<<<<<<< HEAD
-        <form className="create-class-form">
-          <input type="date" placeholder="Fecha" required />
-          <input type="time" placeholder="Hora" required />
-          <input type="text" placeholder="Materiales de clase" required />
-          <button type="submit" className="create-class-btn"> <Link to='/historial'> Guardar</Link></button>
-          <button type="button" className="create-class-btn"> <Link to='/historial'> Descartar </Link> </button>
-=======
         <form className="create-class-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            id="id_clase"
-            placeholder="Clase n"
-            value={formData.id_clase || ""}
-            onChange={handleChange}
-            required
-          />
           <input
             type="date"
             id="fecha_clase"
@@ -80,9 +66,8 @@ const CreacionClase = () => {
           />
           <button type="submit" className="create-class-btn">Guardar</button>
           <button type="button" className="create-class-btn">
-            <Link to="/historial">Descartar</Link>
+            <Link to={`/${nombreUsuario}/cursos/${nombreCurso}/historial`}>Descartar</Link>
           </button>
->>>>>>> e7e5cfa7c7f288151514e44800e2befb86ce4380
         </form>
       </div>
     </div>
