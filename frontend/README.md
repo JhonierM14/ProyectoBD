@@ -2,7 +2,7 @@
 
 ## Summary
 
-The frontend component is everything the user either sees or interacts with when they visit the website.
+The frontend component is verything the user either sees or interacts with when they visit the website.
 
 ## Steps run the frontend without Docker (development mode)
 
