@@ -7,25 +7,49 @@
 
 -- ##### Functions requirements 
 
--- Function 1: Calculate Total Order Amount
---- receive a order_id
---- sum price * quantity 
---- return total_amount
+/*Funcion que evita ingresar registros con rol diferente a estudiante (3),
+en ciertas relaciones*/
+CREATE OR REPLACE FUNCTION check_rol_estudiante()
+RETURNS TRIGGER AS $$
+DECLARE 
+	rol INTEGER;
+BEGIN
+	SELECT id_rol INTO rol FROM usuario WHERE id_usuario=NEW.id_usuario;
+	IF(rol!=3) THEN
+		ROLLBACK;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- Function 2: Get Customer Order Count
---- receive customer_id
---- return order_count
+/*Funcion que evita ingresar registros con un rol diferente a profesor(2) 
+en alguna relacion, y, que no permite ingresar mas de 1 profesor o monitor*/
+CREATE OR REPLACE FUNCTION check_rol_profesor()
+RETURNS TRIGGER AS $$
+DECLARE 
+	rol INTEGER;
+	prof INTEGER;
+	moni INTEGER;
+	estado BOOLEAN;
+BEGIN
+	SELECT id_rol INTO rol FROM usuario WHERE id_usuario=NEW.id_usuario;
+	IF(rol!=2) THEN
+		ROLLBACK;
+	END IF;
 
--- ##### Stored procedure requirements
-
--- 1. Stored Procedure: Add New Product
--- This procedure should take the product 
--- name, description, price, and manufacturer ID as parameters.
-
--- 2. Stored Procedure: Place New Order
--- This procedure should take customer ID and 
--- a list of product IDs with their quantities as parameters.
-
--- 3. Stored Procedure: Update Product Price
--- This procedure should take the product ID and 
--- the new price as parameters.
+	SELECT esMonitor FROM usuario INTO estado WHERE id_usuario=NEW.id_usuario;
+	
+	SELECT COUNT(*) INTO prof FROM
+	usuario INNER JOIN profesorCurso ON usuario.id_usuario=profesorCurso.id_usuario
+	WHERE esMonitor=FALSE AND id_curso=NEW.id_curso;
+	
+	SELECT COUNT(*) INTO moni FROM
+	usuario INNER JOIN profesorCurso ON usuario.id_usuario=profesorCurso.id_usuario
+	WHERE esMonitor=TRUE AND id_curso=NEW.id_curso;
+	
+	IF ((prof=1 AND estado=FALSE) OR (moni=1 AND estado=TRUE)) THEN
+		ROLLBACK;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
