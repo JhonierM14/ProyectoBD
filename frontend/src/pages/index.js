@@ -1,7 +1,6 @@
 export { default as Home } from './Home'
 export { default as Asistencia } from './Asistencia'
 export { default as CreacionClases } from './CreacionClases'
-export { default as CreacionPreguntas } from './CreacionPreguntas'
 export { default as DatosUsuario } from './DatosUsuario'
 export { default as Historial } from './Historial'
 export { default as Reportes } from './Reportes'
