@@ -4,7 +4,6 @@ import Reportes from '../pages/Reportes';
 import InformePreguntas from '../pages/InformePreguntas/InformePreguntas';
 import CrearPreguntas from '../pages/GestionClases/index';
 import CursosProfesor from '../pages/Curso';
-import Historial from '../pages/Historial';
 import GenerateQr from '../pages/CodigoQR';
 
 const AdminRoutes = [
@@ -15,7 +14,6 @@ const AdminRoutes = [
     { path: '/crearpreguntas', element: <CrearPreguntas /> },
     { path: '/codigoQR', element: <GenerateQr/> },
     { path: '/:nombreUsuario/cursos', element: <CursosProfesor /> },
-    { path: '/:nombreUsuario/cursos/:nombreCurso/historial', element: <Historial /> }
 ];
 
 export default AdminRoutes;
