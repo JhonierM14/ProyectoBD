@@ -1,70 +1,110 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from "react";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const MobilLogin = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <View style={styles.container}>
+      {/* Fondo principal */}
+      <View style={styles.background}></View>
+
+      {/* Título "Attenzio" */}
+      <Text style={styles.title}>
+        <Text style={styles.titlePrimary}>Atten</Text>
+        <Text style={styles.titleSecondary}>zio</Text>
+      </Text>
+
+      {/* Campo de correo */}
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Correo</Text>
+        <TextInput style={styles.inputField} placeholder="Correo electrónico" placeholderTextColor="#888" />
+      </View>
+
+      {/* Campo de contraseña */}
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Contraseña</Text>
+        <TextInput
+          style={styles.inputField}
+          placeholder="Contraseña"
+          secureTextEntry={true}
+          placeholderTextColor="#888"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <Text style={styles.createUser}>Crear usuario</Text>
+      </View>
+
+      {/* Botón "Iniciar sesión" */}
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.buttonText}>Iniciar sesión</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  background: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#FFDAA4",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: {
+    textAlign: "center",
+    fontSize: 48,
+    fontFamily: "SpaceMono-Regular",
+    marginBottom: 40,
+  },
+  titlePrimary: {
+    color: "#000000",
+  },
+  titleSecondary: {
+    color: "#FF9900",
+  },
+  inputContainer: {
+    width: "80%",
+    marginBottom: 20,
+  },
+  inputLabel: {
+    color: "#000000",
+    fontSize: 16,
+    fontFamily: "SpaceMono-Regular",
+    marginBottom: 5,
+  },
+  inputField: {
+    backgroundColor: "#D9D9D9",
+    borderWidth: 1,
+    borderColor: "#000000",
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
+    fontFamily: "SpaceMono-Regular",
+  },
+  createUser: {
+    color: "#6A21E0",
+    fontSize: 12,
+    fontFamily: "SpaceMono-Regular",
+    marginTop: 5,
+  },
+  loginButton: {
+    backgroundColor: "#FF9900",
+    borderWidth: 1,
+    borderColor: "#000000",
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "#000000",
+    fontSize: 18,
+    fontFamily: "SpaceMono-Regular",
   },
 });
+
+export default MobilLogin;
