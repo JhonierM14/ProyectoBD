@@ -4,45 +4,52 @@ import { createUsuario } from "../../../api/usuarioApi";
 import "./Registro.css";
 
 const Registro = () => {
-  const [formData, setFormData] = useState({
-    id_rol: 2, // Rol de Profesor por defecto
-    nombre: "",
-    apellido: "",
-    correo: "",
-    cedula: "",
-    direccion: "",
-    contraseña: "",
-    confirmarContraseña: "",
-    foto: "", // Aquí se ingresará la URL de la fotografía
-  });
+  const [id_rol, setRol] = useState(2);
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [confirmarContraseña, setConfirmarContraseña] = useState('');
+  const [cedula, setCedula] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [esMonitor, setMonitor] = useState('');
+  const [foto, setFoto] = useState('');
 
-  // Manejar cambios en los inputs
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
-  };
-
+  
   // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { confirmarContraseña, ...dataToSend } = formData;
 
-    if (formData.contraseña !== confirmarContraseña) {
-      alert("Las contraseñas no coinciden");
-      return;
+    if(contraseña!=confirmarContraseña){
+      alert('Las contraseñas no coinciden');
+    } else{
+      if (id_rol && nombre && apellido && correo && contraseña && cedula && foto && direccion) {
+        // Add the new Usuario to the list
+        const newUsuario = {
+          id_rol,
+          nombre,
+          apellido,
+          correo,
+          contraseña,
+          cedula,
+          foto,
+          direccion,
+          esMonitor,
+        };
+        try {
+          await createUsuario(newUsuario); // Llamada a la API
+          alert("Usuario registrado exitosamente");
+        } catch (error) {
+          console.error("Error al registrar usuario:", error);
+          alert("Hubo un error al registrar el usuario");
+        }
+      
+    } else {
+      alert('Please fill in all fields');
     }
-
-    try {
-      await createUsuario(dataToSend); // Llamada a la API
-      alert("Usuario registrado exitosamente");
-    } catch (error) {
-      console.error("Error al registrar usuario:", error);
-      alert("Hubo un error al registrar el usuario");
-    }
+  }
   };
+  
 
   return (
     <div className="registro-container">
@@ -55,8 +62,8 @@ const Registro = () => {
               <input
                 type="text"
                 id="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ingrese su nombre"
               />
             </div>
@@ -64,9 +71,9 @@ const Registro = () => {
               <label htmlFor="apellidos">Apellidos</label>
               <input
                 type="text"
-                id="apellidos"
-                value={formData.apellidos}
-                onChange={handleChange}
+                id="apellido"
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
                 placeholder="Ingrese sus apellidos"
               />
             </div>
@@ -77,8 +84,8 @@ const Registro = () => {
               <input
                 type="email"
                 id="correo"
-                value={formData.correo}
-                onChange={handleChange}
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
                 placeholder="Ingrese su correo"
               />
             </div>
@@ -87,8 +94,8 @@ const Registro = () => {
               <input
                 type="text"
                 id="cedula"
-                value={formData.cedula}
-                onChange={handleChange}
+                value={cedula}
+                onChange={(e) => setCedula(e.target.value)}
                 placeholder="Ingrese su cédula"
               />
             </div>
@@ -99,8 +106,8 @@ const Registro = () => {
               <input
                 type="text"
                 id="direccion"
-                value={formData.direccion}
-                onChange={handleChange}
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
                 placeholder="Ingrese su dirección"
               />
             </div>
@@ -108,12 +115,22 @@ const Registro = () => {
               <label htmlFor="fotografia">URL de la Fotografía</label>
               <input
                 type="text"
-                id="fotografia"
-                value={formData.fotografia}
-                onChange={handleChange}
+                id="foto"
+                value={foto}
+                onChange={(e) => setFoto(e.target.value)}
                 placeholder="Ingrese la URL de la fotografía"
               />
             </div>
+          </div>
+          <div className="form-row">
+            <label htmlFor="esMonitor">Monitor</label>
+            <input 
+            type="checkbox" 
+            id="esMonitor" 
+            name="esMonitor" 
+            value={true}
+            onClick={(e) => setMonitor(e.target.value)}
+            />  
           </div>
           <div className="form-row">
             <div className="form-group">
@@ -121,8 +138,8 @@ const Registro = () => {
               <input
                 type="password"
                 id="contraseña"
-                value={formData.contraseña}
-                onChange={handleChange}
+                value={contraseña}
+                onChange={(e) => setContraseña(e.target.value)}
                 placeholder="Ingrese su contraseña"
               />
             </div>
@@ -131,17 +148,19 @@ const Registro = () => {
               <input
                 type="password"
                 id="confirmarContraseña"
-                value={formData.confirmarContraseña}
-                onChange={handleChange}
+                value={confirmarContraseña}
+                onChange={(e) => setConfirmarContraseña(e.target.value)}
                 placeholder="Confirme su contraseña"
               />
             </div>
           </div>
-          <button type="submit" className="register-button">
-            <Link to='/'> Registrarse </Link>
-          </button>
+          
+            <div className="form-group">
+              <button type="submit" className="register-button">Registrarse</button>
+              <button className="home-button"><Link to="/">Inicio</Link></button>
+            </div>
+          
         </form>
-        {/* <Link to="/">Volver al inicio</Link> */}
       </div>
     </div>
   );
